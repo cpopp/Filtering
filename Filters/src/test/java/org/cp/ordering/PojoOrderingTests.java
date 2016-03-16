@@ -218,10 +218,18 @@ public class PojoOrderingTests {
 			Assert.fail("Should've thrown exception");
 		} catch (IncompatibleFieldsException e) {
 			Assert.assertEquals("field", e.getIdentifier());
-			Assert.assertEquals(Integer.class, e.getFieldType1());
-			Assert.assertEquals(IntPojo.class, e.getPojoClass1());
-			Assert.assertEquals(String.class, e.getFieldType2());
-			Assert.assertEquals(ObjectPojo.class, e.getPojoClass2());
+			if(e.getPojoClass1().equals(IntPojo.class)) {
+				Assert.assertEquals(IntPojo.class, e.getPojoClass1());
+				Assert.assertEquals(Integer.class, e.getFieldType1());
+				Assert.assertEquals(ObjectPojo.class, e.getPojoClass2());
+				Assert.assertEquals(String.class, e.getFieldType2());
+			} else {
+				Assert.assertEquals(ObjectPojo.class, e.getPojoClass1());
+				Assert.assertEquals(String.class, e.getFieldType1());
+				Assert.assertEquals(IntPojo.class, e.getPojoClass2());
+				Assert.assertEquals(Integer.class, e.getFieldType2());
+			}
+
 		}
 	}
 	
